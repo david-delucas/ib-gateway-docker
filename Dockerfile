@@ -1,8 +1,17 @@
 # Builder
 FROM ubuntu:latest AS builder
 
-RUN apt-get update
-RUN apt-get install -y unzip dos2unix wget
+RUN  apt-get update \
+  && apt-get install -y wget \
+  && apt-get install -y unzip \
+  && apt-get install -y xvfb \
+  && apt-get install -y libxtst6 \
+  && apt-get install -y libxrender1 \
+  && apt-get install -y libxi6 \
+	&& apt-get install -y x11vnc \
+  && apt-get install -y socat \
+  && apt-get install -y software-properties-common \
+  && apt-get install -y dos2unix
 
 WORKDIR /root
 
@@ -19,8 +28,18 @@ RUN dos2unix run.sh
 # Application
 FROM ubuntu:latest
 
-RUN apt-get update
-RUN apt-get install -y x11vnc xvfb socat
+RUN  apt-get update \
+  && apt-get install -y wget \
+  && apt-get install -y unzip \
+  && apt-get install -y xvfb \
+  && apt-get install -y libxtst6 \
+  && apt-get install -y libxrender1 \
+  && apt-get install -y libxi6 \
+	&& apt-get install -y x11vnc \
+  && apt-get install -y socat \
+  && apt-get install -y software-properties-common \
+  && apt-get install -y dos2unix
+
 
 WORKDIR /root
 
