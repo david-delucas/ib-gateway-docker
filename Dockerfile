@@ -9,7 +9,7 @@ WORKDIR /root
 RUN wget -q --progress=bar:force:noscroll --show-progress https://download2.interactivebrokers.com/installers/ibgateway/latest-standalone/ibgateway-latest-standalone-linux-x64.sh -O install-ibgateway.sh
 RUN chmod a+x install-ibgateway.sh
 
-RUN wget -q --progress=bar:force:noscroll --show-progress https://github.com/IbcAlpha/IBC/releases/download/3.8.2/IBCLinux-3.8.2.zip -O ibc.zip
+RUN wget -q --progress=bar:force:noscroll --show-progress https://github.com/IbcAlpha/IBC/releases/download/3.12.0/IBCLinux-3.12.0.zip -O ibc.zip
 RUN unzip ibc.zip -d /opt/ibc
 RUN chmod a+x /opt/ibc/*.sh /opt/ibc/*/*.sh
 
@@ -25,7 +25,10 @@ RUN apt-get install -y x11vnc xvfb socat
 WORKDIR /root
 
 COPY --from=builder /root/install-ibgateway.sh install-ibgateway.sh
-RUN yes n | ./install-ibgateway.sh
+
+#RUN yes n | ./install-ibgateway.sh
+RUN printf "/root/Jts/ibgateway/1012\nn\n" | ./install-ibgateway.sh
+
 
 RUN mkdir .vnc
 RUN x11vnc -storepasswd 1358 .vnc/passwd
@@ -36,7 +39,7 @@ COPY --from=builder /root/run.sh run.sh
 COPY ibc_config.ini ibc/config.ini
 
 ENV DISPLAY :0
-ENV TRADING_MODE paper
+ENV TRADING_MODE live
 ENV TWS_PORT 4002
 ENV VNC_PORT 5900
 
