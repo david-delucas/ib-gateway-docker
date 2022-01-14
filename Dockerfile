@@ -50,7 +50,7 @@ RUN printf "/root/Jts/ibgateway/1012\nn\n" | ./install-ibgateway.sh
 
 
 RUN mkdir .vnc
-RUN x11vnc -storepasswd 1358 .vnc/passwd
+#RUN x11vnc -storepasswd 1358 .vnc/passwd
 
 COPY --from=builder /opt/ibc /opt/ibc
 COPY --from=builder /root/run.sh run.sh
