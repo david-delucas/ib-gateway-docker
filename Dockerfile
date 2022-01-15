@@ -50,7 +50,7 @@ RUN printf "/root/Jts/ibgateway/1012\nn\n" | ./install-ibgateway.sh
 
 
 RUN mkdir .vnc
-#RUN x11vnc -storepasswd 1358 .vnc/passwd
+RUN x11vnc -storepasswd 1358 .vnc/passwd
 
 COPY --from=builder /opt/ibc /opt/ibc
 COPY --from=builder /root/run.sh run.sh
@@ -58,11 +58,5 @@ COPY --from=builder /root/run.sh run.sh
 COPY ibc_config.ini ibc/config.ini
 
 ENV DISPLAY :0
-ENV TRADING_MODE live
-ENV TWS_PORT 4002
-ENV VNC_PORT 5900
-
-EXPOSE $TWS_PORT
-EXPOSE $VNC_PORT
 
 CMD ./run.sh
